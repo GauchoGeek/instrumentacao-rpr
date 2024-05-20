@@ -1,28 +1,10 @@
-/* Fontes e Cores */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
-:root {
-    --primary-color: #007bff;
-    --primary-dark: #0056b3;
-    --secondary-color: #28a745;
-    --secondary-dark: #218838;
-    --danger-color: #dc3545;
-    --danger-dark: #c82333;
-    --warning-color: #ffc107;
-    --warning-dark: #e0a800;
-    --background-color: #f4f4f4;
-    --text-color: #333;
-    --white: #fff;
-    --font-family: 'Poppins', sans-serif;
-}
-
-/* Estilização Básica */
+/* Geral */
 body {
-    font-family: var(--font-family);
-    background-color: var(--background-color);
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    color: var(--text-color);
+    background: #f0f4f8;
+    color: #333;
 }
 
 .container {
@@ -31,170 +13,102 @@ body {
     margin: 0 auto;
 }
 
+/* Cabeçalho */
 header {
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 20px;
+    background: #007bff;
+    color: white;
+    padding: 20px 0;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-bottom: 3px solid var(--primary-dark);
 }
 
-header h1, header h2 {
-    margin: 0;
-    font-weight: 700;
-}
-
-.logo {
-    height: 80px;
+header .logo {
+    max-width: 100px;
     margin-bottom: 10px;
 }
 
-main {
-    margin: 40px auto;
-    background: var(--white);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+header h1 {
+    margin: 10px 0;
+    font-size: 2.5em;
 }
 
-h1, h2 {
-    font-weight: 700;
-}
-
-.form-section, .inventory-section {
-    margin-bottom: 40px;
-}
-
-.form-section h2, .inventory-section h2 {
+header h2 {
+    margin: 0;
     font-size: 1.5em;
+}
+
+/* Seções */
+section {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+section h2 {
+    color: #007bff;
     margin-bottom: 20px;
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 10px;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
+/* Formulário */
+form label {
+    display: block;
     margin: 10px 0 5px;
-    font-weight: bold;
 }
 
-input[type="text"], input[type="number"] {
+form input {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 2px solid var(--primary-color);
+    border: 1px solid #ddd;
     border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 1em;
-    color: var(--text-color);
 }
 
-input[type="text"]:focus, input[type="number"]:focus {
-    outline: none;
-    border-color: var(--primary-dark);
-}
-
-button {
-    background-color: var(--secondary-color);
-    color: var(--white);
-    padding: 10px 15px;
+form button {
+    background: #28a745;
+    color: white;
+    padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 10px;
-    font-weight: bold;
     font-size: 1em;
-    transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: var(--secondary-dark);
+form button:hover {
+    background: #218838;
 }
 
+/* Tabela de inventário */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-table, th, td {
+table th, table td {
     border: 1px solid #ddd;
+    padding: 10px;
     text-align: left;
 }
 
-th, td {
-    padding: 10px;
-    font-size: 1em;
+table th {
+    background: #007bff;
+    color: white;
 }
 
-thead {
-    background-color: var(--primary-color);
-    color: var(--white);
+table tr:nth-child(even) {
+    background: #f9f9f9;
 }
 
-.actions {
-    display: flex;
-    gap: 10px;
-}
-
-.actions button {
-    background-color: var(--danger-color);
-    color: var(--white);
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease;
-}
-
-.actions button:hover {
-    background-color: var(--danger-dark);
-}
-
-.quantity-high {
-    background-color: var(--secondary-color);
-    color: var(--white);
-    text-align: center;
-    border-radius: 4px;
-    padding: 5px;
-    font-weight: bold;
-    border: 2px solid var(--secondary-dark);
-}
-
-.quantity-medium {
-    background-color: var(--warning-color);
-    color: black;
-    text-align: center;
-    border-radius: 4px;
-    padding: 5px;
-    font-weight: bold;
-    border: 2px solid var(--warning-dark);
-}
-
-.quantity-low {
-    background-color: var(--danger-color);
-    color: var(--white);
-    text-align: center;
-    border-radius: 4px;
-    padding: 5px;
-    font-weight: bold;
-    border: 2px solid var(--danger-dark);
-}
-
+/* Rodapé */
 footer {
-    background-color: var(--primary-color);
-    color: var(--white);
+    background: #007bff;
+    color: white;
+    padding: 10px 0;
     text-align: center;
-    padding: 15px;
     margin-top: 20px;
-    font-size: 0.9em;
-    border-top: 3px solid var(--primary-dark);
+}
+
+footer p {
+    margin: 0;
 }
