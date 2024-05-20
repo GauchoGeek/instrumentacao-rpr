@@ -1,15 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const addBtn = document.getElementById('addItem');
-    const removeBtn = document.getElementById('removeItem');
+    const addItemBtn = document.getElementById('addItemBtn');
+    const removeItemBtn = document.getElementById('removeItemBtn');
     const instrumentList = document.getElementById('instrumentList');
+    const instrumentForm = document.getElementById('instrumentForm');
+    const instrumentSelect = document.getElementById('instrumentSelect');
 
-    addBtn.addEventListener('click', function() {
-        // Lógica para adicionar um novo item à lista
-        const newItem = createInstrumentItem('Nova Tag', 'Descrição do novo item');
-        instrumentList.appendChild(newItem);
+    addItemBtn.addEventListener('click', function() {
+        // Verifica se um instrumento foi selecionado
+        if (instrumentSelect.value) {
+            const selectedInstrument = instrumentSelect.value;
+            const newItem = createInstrumentItem(selectedInstrument, 'Descrição do ' + selectedInstrument);
+            instrumentList.appendChild(newItem);
+        } else {
+            alert('Por favor, selecione um instrumento.');
+        }
     });
 
-    removeBtn.addEventListener('click', function() {
+    removeItemBtn.addEventListener('click', function() {
         // Lógica para remover o último item da lista
         const items = instrumentList.querySelectorAll('.instrument-item');
         if (items.length > 0) {
@@ -40,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         itemDiv.appendChild(editBtn);
 
-        return itemDiv;
+        return item
+        }
     }
 });
