@@ -1,14 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Carrega o estoque do Local Storage ou inicializa se não existir
-    let stock = JSON.parse(localStorage.getItem('stock')) || [
+    // Inicializa o estoque de instrumentos
+    let stock = [
         { name: "Termômetros", quantity: 15 },
         { name: "Manômetros", quantity: 20 },
-        { name: "Sistemas de Controle", quantity: 5 },
-        { name: "Analisadores de Gases", quantity: 10 }
+        { name: "Termopares", quantity: 10 }
     ];
 
     // Função para atualizar a tabela de estoque na página
-    function updateStockTable(stock) {
+    function updateStockTable() {
         const tableBody = document.getElementById('stockTable').getElementsByTagName('tbody')[0];
         tableBody.innerHTML = ''; // Limpa a tabela antes de atualizar
 
@@ -49,15 +48,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (stock[index].quantity < 0) {
             stock[index].quantity = 0; // Garante que a quantidade não seja negativa
         }
-        updateStockTable(stock); // Atualiza a tabela após a mudança
-        saveStock(); // Salva o estoque atualizado no Local Storage
+        updateStockTable(); // Atualiza a tabela após a mudança
     }
 
     // Função para remover um item do estoque
     function removeItem(index) {
         stock.splice(index, 1); // Remove o item do array
-        updateStockTable(stock); // Atualiza a tabela
-        saveStock(); // Salva o estoque atualizado no Local Storage
+        updateStockTable(); // Atualiza a tabela
     }
 
     // Função para adicionar ou atualizar um instrumento no estoque
@@ -71,13 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Produto novo, adiciona ao estoque
             stock.push({ name, quantity });
         }
-        updateStockTable(stock);
-        saveStock(); // Salva o estoque atualizado no Local Storage
-    }
-
-    // Salva o estoque no Local Storage
-    function saveStock() {
-        localStorage.setItem('stock', JSON.stringify(stock));
+        updateStockTable();
     }
 
     // Event listener para o formulário de atualização de estoque
@@ -96,5 +87,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Inicializa a tabela de estoque na primeira carga da página
-    updateStockTable(stock);
+    updateStockTable();
 });
