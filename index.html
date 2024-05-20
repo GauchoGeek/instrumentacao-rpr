@@ -12,13 +12,24 @@
         <h1>Gerenciamento de Estoque</h1>
         
         <div class="controls">
-            <button id="addItem">Adicionar Item</button>
-            <button id="removeItem">Remover Item</button>
+            <button id="addItemBtn">Adicionar Item</button>
+            <button id="removeItemBtn">Remover Item</button>
         </div>
         
         <div id="instrumentList">
             <!-- Lista de instrumentos será preenchida dinamicamente -->
         </div>
+
+        <!-- Novo formulário para seleção do instrumento -->
+        <form id="instrumentForm">
+            <label for="instrumentSelect">Selecione o Instrumento:</label>
+            <select id="instrumentSelect">
+                <option value="transmissor_pressao">Transmissor de Pressão</option>
+                <option value="transmissor_temperatura">Transmissor de Temperatura</option>
+                <option value="válvula_controle">Válvula de Controle</option>
+                <!-- Adicione mais opções conforme necessário -->
+            </select>
+        </form>
         
     </div>
 
