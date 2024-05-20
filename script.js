@@ -24,10 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // Adicionar botões de ação
             let addButton = document.createElement('button');
             addButton.textContent = '+';
+            addButton.className = 'add';
             addButton.onclick = function() { updateQuantity(index, 1); };
 
             let subtractButton = document.createElement('button');
             subtractButton.textContent = '-';
+            subtractButton.className = 'subtract';
             subtractButton.onclick = function() { updateQuantity(index, -1); };
 
             cellActions.appendChild(addButton);
@@ -44,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateStockTable(stock); // Atualiza a tabela após a mudança
         saveStock(); // Salva o estoque atualizado no Local Storage
     }
-
     // Função para adicionar ou atualizar um instrumento no estoque
     function addToStock(name, quantity) {
         let index = stock.findIndex(item => item.name.toLowerCase() === name.toLowerCase());
@@ -69,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('stockForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
-        let instrumentName = document.getElementById('instrumentName').value;
+        let instrumentName = document.getElementById('instrumentName').value.trim();
         let quantity = parseInt(document.getElementById('quantity').value, 10);
 
         if (instrumentName && !isNaN(quantity)) {
