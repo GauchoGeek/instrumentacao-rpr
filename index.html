@@ -136,3 +136,59 @@
                 alert('Please fill in all fields');
                 return;
             }
+    <script>
+    // Function to update the item in the inventory or add it if it does not exist
+    function updateInventory(itemName, itemQuantity, itemType) {
+        const inventoryTable = document.getElementById('inventoryTable').getElementsByTagName('tbody')[0];
+        let itemExists = false;
+        
+        // Check if the item exists in the table and update it
+        Array.from(inventoryTable.getElementsByTagName('tr')).forEach(row => {
+            if (row.cells[0].textContent === itemName && row.cells[2].textContent === itemType) {
+                row.cells[1].textContent = parseInt(row.cells[1].textContent) + parseInt(itemQuantity);
+                itemExists = true;
+            }
+        });
+        
+        // If the item does not exist, add a new row
+        if (!itemExists) {
+            let row = inventoryTable.insertRow();
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            let cell3 = row.insertCell(2);
+            let cell4 = row.insertCell(3);
+            
+            cell1.textContent = itemName;
+            cell2.textContent = itemQuantity;
+            cell3.textContent = itemType;
+            
+            // Create a Delete button for the new row
+            let deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Remove';
+            deleteButton.onclick = function() {
+                this.closest('tr').remove();
+            };
+            cell4.appendChild(deleteButton);
+        }
+    }
+
+    document.getElementById('itemForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const itemName = document.getElementById('itemName').value.trim();
+        const itemQuantity = document.getElementById('itemQuantity').value;
+        const itemType = document.getElementById('itemType').value;
+        
+        if (!itemName || !itemQuantity) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        // Update the inventory with the new or existing item
+        updateInventory(itemName, itemQuantity, itemType);
+
+        // Clear the form fields after submitting
+        document.getElementById('itemName').value = '';
+        document.getElementById('itemQuantity').value = '';
+        document.getElementById('itemType').selectedIndex = 0;
+    });
+</script>
