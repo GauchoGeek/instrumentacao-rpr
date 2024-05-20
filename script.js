@@ -24,3 +24,22 @@ document.addEventListener('DOMContentLoaded', function() {
         const tagElement = document.createElement('p');
         tagElement.textContent = 'TAG: ' + tag;
         itemDiv.appendChild(tagElement);
+
+        const descriptionElement = document.createElement('p');
+        descriptionElement.textContent = 'Descrição: ' + description;
+        itemDiv.appendChild(descriptionElement);
+
+        // Adicionando um botão para editar a TAG
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Editar TAG';
+        editBtn.addEventListener('click', function() {
+            const newTag = prompt('Digite a nova TAG:', tag);
+            if (newTag) {
+                tagElement.textContent = 'TAG: ' + newTag;
+            }
+        });
+        itemDiv.appendChild(editBtn);
+
+        return itemDiv;
+    }
+});
