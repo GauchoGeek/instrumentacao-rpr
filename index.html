@@ -1,118 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Refinaria de Petróleo RioGrande</title>
+    <title>Gerenciamento de Estoque - Refinaria Rio Grandense</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <img src="logo-refinaria-riogrande.png" alt="Logo da Refinaria de Rio Grande" class="logo">
-        <h1>Refinaria de Petróleo RioGrande (RG)</h1>
-    </header>
 
     <div class="container">
-        <h2>Estoque de Instrumentos</h2>
-        <form id="itemForm">
-            <input type="text" id="itemName" placeholder="Nome do Item" required>
-            <input type="number" id="itemQuantity" placeholder="Quantidade" required>
-            <select id="itemType">
-                <option value="manometro">Manômetro</option>
-                <option value="termometro">Termômetro</option>
-                <option value="termopar">Termopar</option>
-            </select>
-            <button type="submit">Adicionar ao Estoque</button>
-        </form>
-
-        <table id="inventoryTable">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Quantidade</th>
-                    <th>Tipo</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Items will be dynamically added here -->
-            </tbody>
-        </table>
-
-        <div class="instrument-info" id="instrumentInfo">
-            <h3>Informações do Instrumento</h3>
-            <div id="infoContent">
-                <p>Selecione um item para ver mais detalhes.</p>
-            </div>
+        <h1>Gerenciamento de Estoque</h1>
+        
+        <div class="controls">
+            <button id="addItem">Adicionar Item</button>
+            <button id="removeItem">Remover Item</button>
         </div>
+        
+        <div id="instrumentList">
+            <!-- Lista de instrumentos será preenchida dinamicamente -->
+        </div>
+        
     </div>
 
-    <script>
-        document.getElementById('itemForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const itemName = document.getElementById('itemName').value.trim();
-            const itemQuantity = parseInt(document.getElementById('itemQuantity').value, 10);
-            const itemType = document.getElementById('itemType').value;
-            
-            if (!itemName || isNaN(itemQuantity) || itemQuantity <= 0) {
-                alert('Please fill in all fields correctly.');
-                return;
-            }
-
-            // Update or Add New Item
-            updateInventory(itemName, itemQuantity, itemType);
-            document.getElementById('itemName').value = '';
-            document.getElementById('itemQuantity').value = '';
-        });
-
-        function updateInventory(name, quantity, type) {
-            const inventoryTable = document.getElementById('inventoryTable').getElementsByTagName('tbody')[0];
-            let itemExists = false;
-
-            // Check if item exists and update
-            Array.from(inventoryTable.getElementsByTagName('tr')).forEach(row => {
-                if (row.cells[0].textContent === name && row.cells[2].textContent === type) {
-                    row.cells[1].textContent = parseInt(row.cells[1].textContent) + quantity;
-                    itemExists = true;
-                }
-            });
-
-            // If item doesn't exist, add to the table
-            if (!itemExists) {
-                let row = inventoryTable.insertRow();
-                let cellName = row.insertCell(0);
-                let cellQuantity = row.insertCell(1);
-                let cellType = row.insertCell(2);
-                let cellActions = row.insertCell(3);
-
-                cellName.textContent = name;
-                cellQuantity.textContent = quantity;
-                cellType.textContent = type;
-
-                // Add a Remove button
-                let removeButton = document.createElement('button');
-                removeButton.textContent = 'Remove';
-                removeButton.addEventListener('click', function() {
-                    this.parentElement.parentElement.remove();
-                });
-                cellActions.appendChild(removeButton);
-
-                // Add click handler to show info
-                row.addEventListener('click', () => {
-                    showInstrumentInfo(name, type);
-                });
-            }
-        }
-
-        function showInstrumentInfo(name, type) {
-            const infoContent = document.getElementById('infoContent');
-            infoContent.innerHTML = `
-                <h4>${name}</h4>
-                <p>Type: ${type}</p>
-                <img src="images/${type}.png" alt="${name}">
-                <p>Details about ${name} will be shown here.</p>
-            `;
-        }
-    </script>
+    <script src="scripts.js"></script>
 </body>
 </html>
