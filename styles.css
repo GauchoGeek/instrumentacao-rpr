@@ -3,10 +3,11 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
+    background-color: #f9f9f9; /* Um fundo claro para destacar os elementos coloridos */
 }
 
 header {
-    background-color: #007bff;
+    background-color: #d9534f; /* Vermelho */
     color: white;
     text-align: center;
     padding: 10px 0;
@@ -14,11 +15,15 @@ header {
 
 main {
     margin: 15px;
+    padding: 15px;
+    background-color: white; /* Fundo branco para a parte principal para melhor leitura */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave para dar um efeito elevado */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
 }
 
 table, th, td {
@@ -28,7 +33,12 @@ table, th, td {
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #f0ad4e; /* Amarelo */
+    color: white; /* Texto branco para cabeçalho */
+}
+
+td {
+    background-color: #fff; /* Fundo branco para as células para contraste */
 }
 
 section#actions {
@@ -42,17 +52,22 @@ form#stockForm label {
 form#stockForm input {
     margin-right: 10px;
     padding: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 4px;
 }
 
 form#stockForm button {
-    background-color: #007bff;
+    background-color: #5cb85c; /* Verde */
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+form#stockForm button:hover {
+    background-color: #449d44; /* Verde escuro para hover */
 }
 
 footer {
@@ -61,4 +76,82 @@ footer {
     text-align: center;
     padding: 10px 0;
     margin-top: 20px;
+}
+/* Botões dentro da tabela para adicionar ou subtrair quantidades */
+button {
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+/* Estilo para o botão de adicionar (+) */
+button.add {
+    background-color: #5cb85c; /* Verde */
+}
+
+button.add:hover {
+    background-color: #449d44; /* Verde escuro */
+}
+
+/* Estilo para o botão de subtrair (-) */
+button.subtract {
+    background-color: #d9534f; /* Vermelho */
+}
+
+button.subtract:hover {
+    background-color: #c9302c; /* Vermelho escuro */
+}
+
+/* Estilo para links e botões em geral para foco e ativo */
+a, button {
+    outline: none;
+}
+
+a:hover, button:hover {
+    opacity: 0.8;
+}
+
+/* Corrigindo o layout do input e botão para alinhamento e espaçamento */
+form#stockForm {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+
+form#stockForm label {
+    margin: 10px 5px 10px 0;
+}
+
+form#stockForm input {
+    margin: 10px 10px 10px 0;
+    width: auto;
+}
+
+/* Responsividade para manter a UI utilizável em dispositivos menores */
+@media (max-width: 768px) {
+    form#stockForm {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    form#stockForm label,
+    form#stockForm input,
+    form#stockForm button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    /* Ajuste para mobile para não ter espaçamento lateral */
+    main {
+        margin: 15px 5px;
+        padding: 10px;
+    }
+
+    header, footer {
+        padding: 8px 0;
+    }
 }
