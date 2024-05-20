@@ -3,48 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciamento de Estoque - Refinaria Rio Grandense</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Estoque de Instrumentos</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div class="container">
-        <h1>Gerenciamento de Estoque</h1>
+    <header>
+        <h1>Estoque de Instrumentação - Refinaria de Petróleo Riograndense</h1>
+    </header>
+    <main>
+        <section class="form-section">
+            <h2>Adicionar Novo Instrumento</h2>
+            <form id="instrument-form">
+                <label for="tag">TAG:</label>
+                <input type="text" id="tag" required>
+                <label for="description">Descrição:</label>
+                <input type="text" id="description" required>
+                <button type="submit">Adicionar Instrumento</button>
+            </form>
+        </section>
         
-        <div class="controls">
-            <button id="addItemBtn">Adicionar Item</button>
-            <button id="removeItemBtn">Remover Item</button>
-        </div>
-        
-        <!-- Tabela para exibir os itens -->
-        <table id="instrumentTable">
-            <thead>
-                <tr>
-                    <th>TAG</th>
-                    <th>Descrição</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Linhas da tabela serão preenchidas dinamicamente -->
-            </tbody>
-        </table>
-
-        <!-- Novo formulário para adicionar itens -->
-        <form id="instrumentForm">
-            <label for="instrumentSelect">Selecione o Instrumento:</label>
-            <select id="instrumentSelect">
-                <option value="transmissor_pressao">Transmissor de Pressão</option>
-                <option value="transmissor_temperatura">Transmissor de Temperatura</option>
-                <option value="valvula_controle">Válvula de Controle</option>
-                <!-- Adicione mais opções conforme necessário -->
-            </select>
-            <input type="text" id="instrumentTag" placeholder="TAG do Instrumento">
-            <input type="text" id="instrumentDescription" placeholder="Descrição do Instrumento">
-        </form>
-        
-    </div>
-
-    <script src="scripts.js"></script>
+        <section class="inventory-section">
+            <h2>Estoque Atual</h2>
+            <table id="inventory-table">
+                <thead>
+                    <tr>
+                        <th>TAG</th>
+                        <th>Descrição</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Os instrumentos serão adicionados aqui -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html>
