@@ -1,107 +1,45 @@
-/* General body styles */
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
     background-color: #f4f4f4;
-}
-
-/* Header styling */
-header {
-    background: #007bff;
-    color: white;
-    padding: 10px 0;
-    text-align: center;
-}
-
-/* Logo styling */
-.logo {
-    height: 60px;
-    margin: 10px 0;
-}
-
-/* Container for main content */
-.container {
-    width: 80%;
-    margin: 20px auto;
-    padding: 10px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Main heading <h2> inside the container */
-h2 {
     color: #333;
 }
 
-/* Form styling */
-form {
-    margin-top: 20px;
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Input and select box styling */
-input[type="text"],
-input[type="number"],
-select {
-    width: 200px;
-    padding: 10px;
-    margin: 10px 5px 10px 0;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
+h1 {
+    color: #E53935; /* Vermelho */
 }
 
-/* Button styling */
-button {
+.controls {
+    margin-bottom: 20px;
+}
+
+.controls button {
+    margin-right: 10px;
     padding: 10px 20px;
-    margin-top: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
+    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #218838;
+#addItem {
+    background-color: #CDDC39; /* Amarelo */
+    color: #333;
 }
 
-/* Table styling */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+#removeItem {
+    background-color: #4CAF50; /* Verde */
+    color: #fff;
 }
 
-th, td {
-    padding: 8px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-/* Instrument information panel styling */
-.instrument-info {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #f8f9fa;
+#instrumentList .instrument-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #E53935;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-.instrument-info h3 {
-    margin-top: 0;
-}
-
-.instrument-info img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin-top: 10px;
-    border-radius: 4px;
 }
