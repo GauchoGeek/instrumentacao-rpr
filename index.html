@@ -16,11 +16,21 @@
             <button id="removeItemBtn">Remover Item</button>
         </div>
         
-        <div id="instrumentList">
-            <!-- Lista de instrumentos será preenchida dinamicamente -->
-        </div>
+        <!-- Tabela para exibir os itens -->
+        <table id="instrumentTable">
+            <thead>
+                <tr>
+                    <th>TAG</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Linhas da tabela serão preenchidas dinamicamente -->
+            </tbody>
+        </table>
 
-        <!-- Novo formulário para seleção do instrumento -->
+        <!-- Novo formulário para adicionar itens -->
         <form id="instrumentForm">
             <label for="instrumentSelect">Selecione o Instrumento:</label>
             <select id="instrumentSelect">
