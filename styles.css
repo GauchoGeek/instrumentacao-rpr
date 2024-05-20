@@ -1,6 +1,6 @@
 /* Estilização Básica */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
@@ -11,40 +11,44 @@ header {
     color: white;
     padding: 15px;
     text-align: center;
-}
-
-main {
-    width: 90%;
-    margin: 20px auto;
-    background: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-bottom: 3px solid #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 h1, h2 {
     margin: 0;
 }
 
-.form-section, .inventory-section {
-    margin: 20px 0;
+main {
+    width: 90%;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
 }
 
 label {
-    display: block;
     margin: 10px 0 5px;
+    font-weight: bold;
 }
 
-input[type="text"] {
+input[type="text"], input[type="number"] {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
 button {
-    background-color: #007bff;
+    background-color: #28a745;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -54,13 +58,14 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #218838;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 table, th, td {
@@ -70,6 +75,11 @@ table, th, td {
 
 th, td {
     padding: 10px;
+}
+
+thead {
+    background-color: #007bff;
+    color: white;
 }
 
 .actions {
@@ -88,4 +98,28 @@ th, td {
 
 .actions button:hover {
     background-color: #c82333;
+}
+
+.quantity-high {
+    background-color: #28a745;
+    color: white;
+}
+
+.quantity-medium {
+    background-color: #ffc107;
+    color: black;
+}
+
+.quantity-low {
+    background-color: #dc3545;
+    color: white;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 0.9em;
+    background-color: #007bff;
+    color: white;
 }
