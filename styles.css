@@ -78,17 +78,17 @@ footer {
     margin-top: 20px;
 }
 
-/* Botões dentro da tabela para adicionar ou subtrair quantidades */
+/* Estilos para botões dentro da tabela */
 button {
-    color: white;
+    margin: 0 5px;
+    padding: 5px 10px;
     border: none;
-    padding: 5px 8px;
-    cursor: pointer;
     border-radius: 4px;
+    cursor: pointer;
     transition: background-color 0.2s;
+    color: white;
 }
 
-/* Estilo para o botão de adicionar (+) */
 button.add {
     background-color: #5cb85c; /* Verde */
 }
@@ -97,7 +97,6 @@ button.add:hover {
     background-color: #449d44; /* Verde escuro */
 }
 
-/* Estilo para o botão de subtrair (-) */
 button.subtract {
     background-color: #d9534f; /* Vermelho */
 }
@@ -106,30 +105,12 @@ button.subtract:hover {
     background-color: #c9302c; /* Vermelho escuro */
 }
 
-/* Estilo para links e botões em geral para foco e ativo */
-a, button {
-    outline: none;
+button.remove {
+    background-color: #f0ad4e; /* Amarelo */
 }
 
-a:hover, button:hover {
-    opacity: 0.8;
-}
-
-/* Corrigindo o layout do input e botão para alinhamento e espaçamento */
-form#stockForm {
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    flex-wrap: wrap;
-}
-
-form#stockForm label {
-    margin: 10px 5px 10px 0;
-}
-
-form#stockForm input {
-    margin: 10px 10px 10px 0;
-    width: auto;
+button.remove:hover {
+    background-color: #ec971f; /* Amarelo escuro */
 }
 
 /* Responsividade para manter a UI utilizável em dispositivos menores */
