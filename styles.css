@@ -1,31 +1,70 @@
+/* Fontes e Cores */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+    --primary-color: #007bff;
+    --primary-dark: #0056b3;
+    --secondary-color: #28a745;
+    --secondary-dark: #218838;
+    --danger-color: #dc3545;
+    --danger-dark: #c82333;
+    --warning-color: #ffc107;
+    --warning-dark: #e0a800;
+    --background-color: #f4f4f4;
+    --text-color: #333;
+    --white: #fff;
+}
+
 /* Estilização Básica */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
     margin: 0;
     padding: 0;
+    color: var(--text-color);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 header {
-    background-color: #007bff;
-    color: white;
-    padding: 15px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 20px;
     text-align: center;
-    border-bottom: 3px solid #0056b3;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-bottom: 3px solid var(--primary-dark);
 }
 
-h1, h2 {
+header h1, header h2 {
     margin: 0;
+    font-weight: 700;
 }
 
 main {
-    width: 90%;
-    margin: 20px auto;
-    background: white;
+    margin: 40px auto;
+    background: var(--white);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    font-weight: 700;
+}
+
+.form-section, .inventory-section {
+    margin-bottom: 40px;
+}
+
+.form-section h2, .inventory-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
 }
 
 form {
@@ -39,26 +78,31 @@ label {
 }
 
 input[type="text"], input[type="number"] {
-    width: 100%;
-    padding: 8px;
+    width:100%;
+    padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
+    font-size: 1em;
+    color: var(--text-color);
 }
 
 button {
-    background-color: #28a745;
-    color: white;
+    background-color: var(--secondary-color);
+    color: var(--white);
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     margin-top: 10px;
+    font-weight: bold;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: var(--secondary-dark);
 }
 
 table {
@@ -75,11 +119,12 @@ table, th, td {
 
 th, td {
     padding: 10px;
+    font-size: 1em;
 }
 
 thead {
-    background-color: #007bff;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--white);
 }
 
 .actions {
@@ -88,48 +133,54 @@ thead {
 }
 
 .actions button {
-    background-color: #dc3545;
-    color: white;
+    background-color: var(--danger-color);
+    color: var(--white);
     padding: 5px 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
 }
 
 .actions button:hover {
-    background-color: #c82333;
+    background-color: var(--danger-dark);
 }
 
 .quantity-high {
-    background-color: #28a745;
-    color: white;
+    background-color: var(--secondary-color);
+    color: var(--white);
     text-align: center;
     border-radius: 4px;
     padding: 5px;
+    font-weight: bold;
 }
 
 .quantity-medium {
-    background-color: #ffc107;
+    background-color: var(--warning-color);
     color: black;
     text-align: center;
     border-radius: 4px;
     padding: 5px;
+    font-weight: bold;
 }
 
 .quantity-low {
-    background-color: #dc3545;
-    color: white;
+    background-color: var(--danger-color);
+    color: var(--white);
     text-align: center;
     border-radius: 4px;
     padding: 5px;
+    font-weight: bold;
 }
 
 footer {
+    background-color: var(--primary-color);
+    color: var(--white);
     text-align: center;
     padding: 15px;
     margin-top: 20px;
     font-size: 0.9em;
-    background-color: #007bff;
-    color: white;
-    border-top: 3px solid #0056b3;
+    border-top: 3px solid var(--primary-dark);
 }
