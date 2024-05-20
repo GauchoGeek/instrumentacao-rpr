@@ -32,8 +32,14 @@ document.addEventListener('DOMContentLoaded', function() {
             subtractButton.className = 'subtract';
             subtractButton.onclick = function() { updateQuantity(index, -1); };
 
+            let removeButton = document.createElement('button');
+            removeButton.textContent = 'Remover';
+            removeButton.className = 'remove';
+            removeButton.onclick = function() { removeItem(index); };
+
             cellActions.appendChild(addButton);
             cellActions.appendChild(subtractButton);
+            cellActions.appendChild(removeButton);
         });
     }
 
@@ -46,6 +52,14 @@ document.addEventListener('DOMContentLoaded', function() {
         updateStockTable(stock); // Atualiza a tabela após a mudança
         saveStock(); // Salva o estoque atualizado no Local Storage
     }
+
+    // Função para remover um item do estoque
+    function removeItem(index) {
+        stock.splice(index, 1); // Remove o item do array
+        updateStockTable(stock); // Atualiza a tabela
+        saveStock(); // Salva o estoque atualizado no Local Storage
+    }
+
     // Função para adicionar ou atualizar um instrumento no estoque
     function addToStock(name, quantity) {
         let index = stock.findIndex(item => item.name.toLowerCase() === name.toLowerCase());
