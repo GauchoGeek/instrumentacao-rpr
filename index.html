@@ -5,6 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Refinaria de Petróleo RioGrande</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input, select, button {
+            margin: 10px 0;
+            padding: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .logo {
+            width: 150px;
+            margin-top: 10px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -21,12 +92,47 @@
     </header>
 
     <main>
-        <h2>Bem-Vindo à Refinaria de Petróleo RioGrande</h2>
-        <p>Escolha uma das opções no menu para saber mais sobre nossos serviços e instrumentos.</p>
+        <h2>Gerenciamento de Estoque de Instrumentos</h2>
+        <p>Use o formulário abaixo para adicionar, atualizar ou remover instrumentos do estoque.</p>
+
+        <form id="itemForm">
+            <input type="text" id="itemName" placeholder="Nome do Item" required>
+            <input type="number" id="itemQuantity" placeholder="Quantidade" required>
+            <select id="itemType">
+                <option value="manometro">Manômetro</option>
+                <option value="termometro">Termômetro</option>
+                <option value="termopar">Termopar</option>
+            </select>
+            <button type="submit">Adicionar/Atualizar Item</button>
+        </form>
+
+        <table id="inventoryTable">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>Tipo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Items will be added here -->
+            </tbody>
+        </table>
     </main>
 
     <footer>
         <p>&copy; 2024 Refinaria de Petróleo RioGrande (RG)</p>
     </footer>
-</body>
-</html>
+
+    <script>
+        document.getElementById('itemForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const itemName = document.getElementById('itemName').value.trim();
+            const itemQuantity = document.getElementById('itemQuantity').value;
+            const itemType = document.getElementById('itemType').value;
+            
+            if (!itemName || !itemQuantity) {
+                alert('Please fill in all fields');
+                return;
+            }
