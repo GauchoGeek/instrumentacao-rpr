@@ -1,188 +1,107 @@
+/* General body styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    color: #333;
-    background-color: #f9f9f9;
+    background-color: #f4f4f4;
 }
 
+/* Header styling */
 header {
-    background-color: #d9534f; /* Vermelho */
+    background: #007bff;
     color: white;
+    padding: 10px 0;
     text-align: center;
-    padding: 10px 0;
-    position: relative;
 }
 
-.header-content {
-    position: relative;
-    padding: 10px 0;
-}
-
+/* Logo styling */
 .logo {
     height: 60px;
-    position: absolute;
-    left: 10px;
-    top: 5px;
+    margin: 10px 0;
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* Container for main content */
+.container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-nav ul li {
-    display: inline;
-    margin: 0 10px;
+/* Main heading <h2> inside the container */
+h2 {
+    color: #333;
 }
 
-nav ul li a {
-    text-decoration: none;
+/* Form styling */
+form {
+    margin-top: 20px;
+}
+
+/* Input and select box styling */
+input[type="text"],
+input[type="number"],
+select {
+    width: 200px;
+    padding: 10px;
+    margin: 10px 5px 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+/* Button styling */
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #28a745;
     color: white;
-    background-color: #f0ad4e; /* Amarelo */
-    padding: 10px 15px;
-    border-radius: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
     transition: background-color 0.3s;
 }
 
-nav ul li a:hover {
-    background-color: #ec971f; /* Amarelo escuro */
+button:hover {
+    background-color: #218838;
 }
 
-main {
-    margin: 15px;
-    padding: 15px;
-    background-color: white;
-    box-shadow:
-    0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
+/* Table styling */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
-    text-align: left;
+th, td {
     padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
 }
 
 th {
-    background-color: #f0ad4e; /* Amarelo */
-    color: white;
+    background-color: #f2f2f2;
 }
 
-td {
-    background-color: #fff;
-}
-
-section#actions {
+/* Instrument information panel styling */
+.instrument-info {
     margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-form#stockForm label {
-    margin-right: 10px;
+.instrument-info h3 {
+    margin-top: 0;
 }
 
-form#stockForm input {
-    margin-right: 10px;
-    padding: 8px;
-    border: 1px solid #ccc;
+.instrument-info img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 10px;
     border-radius: 4px;
-}
-
-form#stockForm button {
-    background-color: #5cb85c; /* Verde */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-form#stockForm button:hover {
-    background-color: #449d44; /* Verde escuro */
-}
-
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    margin-top: 20px;
-}
-
-button {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    color: white;
-}
-
-button.add {
-    background-color: #5cb85c; /* Verde */
-}
-
-button.add:hover {
-    background-color: #449d44; /* Verde escuro */
-}
-
-button.subtract {
-    background-color: #d9534f; /* Vermelho */
-}
-
-button.subtract:hover {
-    background-color: #c9302c; /* Vermelho escuro */
-}
-
-button.remove {
-    background-color: #f0ad4e; /* Amarelo */
-}
-
-button.remove:hover {
-    background-color: #ec971f; /* Amarelo escuro */
-}
-
-/* Responsividade para manter a UI utilizável em dispositivos menores */
-@media (max-width: 768px) {
-    nav ul {
-        flex-direction: column;
-        padding: 10px 0;
-    }
-
-    nav ul li {
-        margin: 5px 0;
-    }
-
-    form#stockForm {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    form#stockForm label,
-    form#stockForm input,
-    form#stockForm button {
-        width: 100%;
-        margin: 5px 0;
-    }
-
-    /* Ajuste para mobile para não ter espaçamento lateral */
-    main {
-        margin: 15px 5px;
-        padding: 10px;
-    }
-
-    header, footer {
-        padding: 8px 0;
-    }
 }
