@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estoque de Instrumentos</title>
+    <title>Estoque de Instrumentos - Refinaria de Petróleo Riograndense</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Estoque de Instrumentação - Refinaria de Petróleo Riograndense</h1>
+        <h1>Estoque de Instrumentação</h1>
+        <h2>Refinaria de Petróleo Riograndense</h2>
     </header>
     <main>
         <section class="form-section">
@@ -18,6 +19,8 @@
                 <input type="text" id="tag" required>
                 <label for="description">Descrição:</label>
                 <input type="text" id="description" required>
+                <label for="quantity">Quantidade:</label>
+                <input type="number" id="quantity" min="1" required>
                 <button type="submit">Adicionar Instrumento</button>
             </form>
         </section>
@@ -29,6 +32,7 @@
                     <tr>
                         <th>TAG</th>
                         <th>Descrição</th>
+                        <th>Quantidade</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -38,6 +42,9 @@
             </table>
         </section>
     </main>
+    <footer>
+        <p>© 2024 Refinaria de Petróleo Riograndense - Todos os direitos reservados</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
