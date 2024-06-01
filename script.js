@@ -95,6 +95,3 @@ document.addEventListener('DOMContentLoaded', function () {
             // Inicializa a renderização do inventário quando a página é carregada
             renderInventory();
         });
-    </script>
-</body>
-</html>
