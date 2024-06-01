@@ -42,3 +42,72 @@ document.addEventListener('DOMContentLoaded', function() {
             if (editId) {
                 // Atualiza o instrumento
                 response = await fetch(`/api/instruments/${editId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(instrumentData)
+            });
+            editId = null; // Reset edit ID
+        } else {
+            // Cria um novo instrumento
+            response = await fetch('/api/instruments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(instrumentData)
+            });
+        }
+
+        if (response.ok) {
+            fetchInstruments(); // Atualiza a lista de instrumentos
+        } else {
+            const errorText = await response.text();
+            console.error('Falha ao salvar instrumento:', errorText);
+        }
+
+        form.reset(); // Limpa o formulário após adicionar/atualizar
+        document.querySelector('button[type="submit"]').textContent = 'Adicionar Instrumento';
+    });
+
+    // Edita um instrumento existente
+    window.editInstrument = async function(id) {
+        try {
+            const response = await fetch(`/api/instruments/${id}`);
+            const instrument = await response.json();
+
+            if (response.ok) {
+                document.getElementById('name').value = instrument.name;
+                document.getElementById('quantity').value = instrument.quantity;
+                document.getElementById('description').value = instrument.description;
+
+                editId = id; // Set edit ID
+
+                document.getElementById('form-container').scrollIntoView();
+                const submitButton = form.querySelector('button[type="submit"]');
+                submitButton.textContent = 'Atualizar';
+            } else {
+                console.error('Instrumento não encontrado:', id);
+            }
+        } catch (error) {
+            console.error('Erro ao editar instrumento:', error);
+        }
+    };
+
+    // Exclui um instrumento do estoque
+    window.deleteInstrument = async function(id) {
+        try {
+            const response = await fetch(`/api/instruments/${id}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                fetchInstruments(); // Atualiza a lista de instrumentos
+            } else {
+                console.error('Falha ao deletar instrumento:', id);
+            }
+        } catch (error) {
+            console.error('Erro ao deletar instrumento:', error);
+        }
+    };
+
+    // Inicializa a renderização do inventário quando a página é carregada
+    fetchInstruments();
+});
