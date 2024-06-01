@@ -1,24 +1,20 @@
-document.getElementById('instrument-form').addEventListener('submit', function (e) {
-    e.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('instrumentForm');
+    const inventoryTable = document.getElementById('inventory').getElementsByTagName('tbody')[0];
 
-    const tag = document.getElementById('tag').value;
-    const description = document.getElementById('description').value;
-    const quantity = document.getElementById('quantity').value;
+    // Função para renderizar o inventário
+    function renderInventory() {
+        const instruments = JSON.parse(localStorage.getItem('instruments')) || [];
+        inventoryTable.innerHTML = ''; // Limpa a tabela
 
-    const table = document.getElementById('inventory-table').getElementsByTagName('tbody')[0];
-    const newRow = table.insertRow();
+        instruments.forEach((instrument, index) => {
+            let row = inventoryTable.insertRow();
+            row.insertCell(0).textContent = instrument.name;
+            row.insertCell(1).textContent = instrument.quantity;
+            row.insertCell(2).textContent = instrument.description;
+            let actionCell = row.insertCell(3);
+            actionCell.innerHTML = `<button onclick="editInstrument(${index})">Editar</button>`;
+        });
+    }
 
-    newRow.innerHTML = `
-        <td>${tag}</td>
-        <td>${description}</td>
-        <td>${quantity}</td>
-        <td><button onclick="deleteRow(this)">Excluir</button></td>
-    `;
-
-    document.getElementById('instrument-form').reset();
-});
-
-function deleteRow(button) {
-    const row = button.parentElement.parentElement;
-    row.remove();
-}
+    // Função para adicionar um novo
