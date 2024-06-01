@@ -1,11 +1,14 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('instrumentForm');
             const inventoryTable = document.getElementById('inventory').getElementsByTagName('tbody')[0];
             const submitButton = form.querySelector('button[type="submit"]');
+            const clearInventoryButton = document.getElementById('clearInventory');
+            const apiUrl = 'http://localhost:3000/api/instruments';
 
             // Função para renderizar o inventário
-            function renderInventory() {
-                const instruments = JSON.parse(localStorage.getItem('instruments')) || [];
+            async function renderInventory() {
+                const response = await fetch(apiUrl);
+                const instruments = await response.json();
                 inventoryTable.innerHTML = ''; // Limpa a tabela
 
                 instruments.forEach((instrument, index) => {
@@ -22,25 +25,27 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             // Função para adicionar um novo instrumento ao estoque
-            form.addEventListener('submit', function (event) {
+            form.addEventListener('submit', async function (event) {
                 event.preventDefault();
                 const name = document.getElementById('name').value;
                 const quantity = document.getElementById('quantity').value;
                 const description = document.getElementById('description').value;
 
-                let instruments = JSON.parse(localStorage.getItem('instruments')) || [];
-                instruments.push({ name, quantity, description });
+                await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, quantity, description })
+                });
 
-                localStorage.setItem('instruments', JSON.stringify(instruments));
                 renderInventory();
-
-                // Limpa o formulário após adicionar
-                form.reset();
+                form.reset(); // Limpa o formulário após adicionar
             });
-    // Função para editar um instrumento existente
-            window.editInstrument = function (index) {
-                let instruments = JSON.parse(localStorage.getItem('instruments')) || [];
-                let instrument = instruments[index];
+
+            // Função para editar um instrumento existente
+            window.editInstrument = async function (index) {
+                const response = await fetch(apiUrl);
+                const instruments = await response.json();
+                const instrument = instruments[index];
 
                 if (instrument) {
                     document.getElementById('name').value = instrument.name;
@@ -49,49 +54,54 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     // Atualiza o botão para modo de edição
                     submitButton.textContent = 'Atualizar';
-                    submitButton.onclick = function (event) {
+                    submitButton.onclick = async function (event) {
                         event.preventDefault();
-                        updateInstrument(index);
+                        await updateInstrument(index);
                     };
                 }
             };
 
-            // Função para atualizar um instrumento no localStorage
-            function updateInstrument(index) {
-                let instruments = JSON.parse(localStorage.getItem('instruments')) || [];
-                instruments[index] = {
-                    name: document.getElementById('name').value,
-                    quantity: document.getElementById('quantity').value,
-                    description: document.getElementById('description').value
-                };
+            // Função para atualizar um instrumento no backend
+            async function updateInstrument(index) {
+                const name = document.getElementById('name').value;
+                const quantity = document.getElementById('quantity').value;
+                const description = document.getElementById('description').value;
 
-                localStorage.setItem('instruments', JSON.stringify(instruments));
+                await fetch(`${apiUrl}/${index}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, quantity, description })
+                });
+
                 renderInventory();
 
                 // Restaura o botão e o formulário após atualização
                 form.reset();
                 submitButton.textContent = 'Adicionar Instrumento';
-                submitButton.onclick = function (event) {
+                submitButton.onclick = async function (event) {
                     event.preventDefault();
                     form.dispatchEvent(new Event('submit'));
                 };
             }
 
-            // Função para excluir um instrumento do inventário
-            window.deleteInstrument = function (index) {
-                let instruments = JSON.parse(localStorage.getItem('instruments')) || [];
-                instruments.splice(index, 1); // Remove o instrumento do array
+            // Função para excluir um instrumento do backend
+            window.deleteInstrument = async function (index) {
+                await fetch(`${apiUrl}/${index}`, {
+                    method: 'DELETE'
+                });
 
-                localStorage.setItem('instruments', JSON.stringify(instruments));
                 renderInventory();
             };
 
             // Função para limpar todo o inventário
-            document.getElementById('clearInventory').addEventListener('click', function () {
-                localStorage.removeItem('instruments');
+            clearInventoryButton.addEventListener('click', async function () {
+                await fetch(apiUrl, {
+                    method: 'DELETE'
+                });
                 renderInventory();
             });
 
             // Inicializa a renderização do inventário quando a página é carregada
             renderInventory();
         });
+
