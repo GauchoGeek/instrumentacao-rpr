@@ -1,113 +1,79 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('instrumentForm');
     const inventoryTable = document.getElementById('inventory').getElementsByTagName('tbody')[0];
-    let editId = null; // ID do item sendo editado
 
-    // Carrega os instrumentos do servidor e renderiza na tabela
-    async function fetchInstruments() {
-        try {
-            const response = await fetch('/api/instruments');
-            const instruments = await response.json();
-            renderInventory(instruments);
-        } catch (error) {
-            console.error('Erro ao buscar instrumentos:', error);
-        }
-    }
-
-    // Renderiza os instrumentos na tabela
-    function renderInventory(instruments) {
+    // Função para renderizar o inventário
+    function renderInventory() {
+        const instruments = JSON.parse(localStorage.getItem('instruments')) || [];
         inventoryTable.innerHTML = ''; // Limpa a tabela
 
-        instruments.forEach((instrument) => {
+        instruments.forEach((instrument, index) => {
             let row = inventoryTable.insertRow();
             row.insertCell(0).textContent = instrument.name;
             row.insertCell(1).textContent = instrument.quantity;
             row.insertCell(2).textContent = instrument.description;
             let actionCell = row.insertCell(3);
-            actionCell.innerHTML = `<button onclick="editInstrument('${instrument._id}')">Editar</button> <button onclick="deleteInstrument('${instrument._id}')">Excluir</button>`;
-        });
-    }
-
-    // Adiciona ou atualiza um instrumento no estoque
-    form.addEventListener('submit', async function(event) {
-        event.preventDefault();
-        const name = document.getElementById('name').value;
-        const quantity = parseInt(document.getElementById('quantity').value, 10);
-        const description = document.getElementById('description').value;
-
-        const instrumentData = { name, quantity, description };
-
-        try {
-            let response;
-            if (editId) {
-                // Atualiza o instrumento
-                response = await fetch(`/api/instruments/${editId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(instrumentData)
+            actionCell.innerHTML = <button onclick="editInstrument(${index})">Editar</button>;
             });
-            editId = null; // Reset edit ID
-        } else {
-            // Cria um novo instrumento
-            response = await fetch('/api/instruments', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(instrumentData)
-            });
-        }
+            // Função para adicionar um novo instrumento ao estoque
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const name = document.getElementById('name').value;
+    const quantity = document.getElementById('quantity').value;
+    const description = document.getElementById('description').value;
 
-        if (response.ok) {
-            fetchInstruments(); // Atualiza a lista de instrumentos
-        } else {
-            const errorText = await response.text();
-            console.error('Falha ao salvar instrumento:', errorText);
-        }
+    let instruments = JSON.parse(localStorage.getItem('instruments')) || [];
+    instruments.push({ name, quantity, description });
 
-        form.reset(); // Limpa o formulário após adicionar/atualizar
-        document.querySelector('button[type="submit"]').textContent = 'Adicionar Instrumento';
-    });
+    localStorage.setItem('instruments', JSON.stringify(instruments));
+    renderInventory();
 
-    // Edita um instrumento existente
-    window.editInstrument = async function(id) {
-        try {
-            const response = await fetch(`/api/instruments/${id}`);
-            const instrument = await response.json();
-
-            if (response.ok) {
-                document.getElementById('name').value = instrument.name;
-                document.getElementById('quantity').value = instrument.quantity;
-                document.getElementById('description').value = instrument.description;
-
-                editId = id; // Set edit ID
-
-                document.getElementById('form-container').scrollIntoView();
-                const submitButton = form.querySelector('button[type="submit"]');
-                submitButton.textContent = 'Atualizar';
-            } else {
-                console.error('Instrumento não encontrado:', id);
-            }
-        } catch (error) {
-            console.error('Erro ao editar instrumento:', error);
-        }
-    };
-
-    // Exclui um instrumento do estoque
-    window.deleteInstrument = async function(id) {
-        try {
-            const response = await fetch(`/api/instruments/${id}`, {
-                method: 'DELETE'
-            });
-
-            if (response.ok) {
-                fetchInstruments(); // Atualiza a lista de instrumentos
-            } else {
-                console.error('Falha ao deletar instrumento:', id);
-            }
-        } catch (error) {
-            console.error('Erro ao deletar instrumento:', error);
-        }
-    };
-
-    // Inicializa a renderização do inventário quando a página é carregada
-    fetchInstruments();
+    // Limpa o formulário após adicionar
+    form.reset();
 });
+
+// Função para editar um instrumento existente
+window.editInstrument = function(index) {
+    let instruments = JSON.parse(localStorage.getItem('instruments')) || [];
+    let instrument = instruments[index];
+
+    if (instrument) {
+        document.getElementById('name').value = instrument.name;
+        document.getElementById('quantity').value = instrument.quantity;
+        document.getElementById('description').value = instrument.description;
+
+        // Atualiza o botão para modo de edição
+        const submitButton = form.querySelector('button[type="submit"]');
+        submitButton.textContent = 'Atualizar';
+        submitButton.onclick = function(event) {
+            event.preventDefault();
+            updateInstrument(index);
+        };
+    }
+};
+
+// Função para atualizar um instrumento no localStorage
+function updateInstrument(index) {
+    let instruments = JSON.parse(localStorage.getItem('instruments')) || [];
+    instruments[index] = {
+        name: document.getElementById('name').value,
+        quantity: document.getElementById('quantity').value,
+        description: document.getElementById('description').value
+    };
+
+    localStorage.setItem('instruments', JSON.stringify(instruments));
+    renderInventory();
+
+    // Restaura o botão e o formulário após atualização
+    form.reset();
+    const submitButton = form.querySelector('button[type="submit"]');
+    submitButton.textContent = 'Adicionar Instrumento';
+    submitButton.onclick = function(event) {
+        event.preventDefault();
+        form.dispatchEvent(new Event('submit'));
+    };
+}
+
+// Inicializa a renderização do inventário quando a página é carregada
+renderInventory();
+    });
