@@ -1,95 +1,56 @@
-// server.js
 const express = require('express');
-const cors = require('cors');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const sqlite3 = require('sqlite3').verbose();
+const cors = require('cors');
+
 const app = express();
-const port = 3000;
-
-// Conexão com MongoDB
-mongoose.connect('mongodb://localhost:27017/inventario', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
-const instrumentSchema = new mongoose.Schema({
-    name: String,
-    quantity: Number,
-    description: String
-});
-
-const Instrument = mongoose.model('Instrument', instrumentSchema);
-
-app.use(cors());
 app.use(bodyParser.json());
+app.use(cors());
 
-// Obter todos os instrumentos
-app.get('/api/instruments', async (req, res) => {
-    try {
-        const instruments = await Instrument.find();
-        res.json(instruments);
-    } catch (error) {
-        res.status(500).json({ error: 'Erro ao obter os instrumentos' });
+// Alterei para um arquivo para persistência simples, troque pelo caminho desejado
+const dbPath = './inventory.db';
+let db = new sqlite3.Database(dbPath, (err) => {
+    if (err) {
+        return console.error(err.message);
+        process.exit(1); // Encerra o processo caso não consiga conectar
     }
+    console.log('Connected to the SQLite database.');
+
+    // Criar a tabela se não existir
+    db.serialize(() => {
+        db.run("CREATE TABLE IF NOT EXISTS inventory (id INTEGER PRIMARY KEY AUTOINCREMENT, product TEXT NOT NULL, quantity INTEGER NOT NULL)", (err) => {
+            if (err) {
+                console.error("Error creating table:", err.message);
+            } else {
+                console.log("Table 'inventory' created or already exists.");
+            }
+        });
+    });
 });
 
-// Adicionar um novo instrumento
-app.post('/api/instruments', async (req, res) => {
-    try {
-        const { name, quantity, description } = req.body;
-        const newInstrument = new Instrument({ name, quantity, description });
-        await newInstrument.save();
-        res.json({ message: 'Instrumento adicionado com sucesso!' });
-    } catch (error) {
-        res.status(500).json({ error: 'Erro ao adicionar o instrumento' });
-    }
-});
-
-// Atualizar um instrumento
-app.put('/api/instruments/:id', async (req, res) => {
-    try {
-        const { name, quantity, description } = req.body;
-        const instrument = await Instrument.findByIdAndUpdate(
-            req.params.id,
-            { name, quantity, description },
-            { new: true }
-        );
-
-        if (instrument) {
-            res.json({ message: 'Instrumento atualizado com sucesso!' });
-        } else {
-            res.status(404).json({ error: 'Instrumento não encontrado' });
+// Rota para adicionar itens ao inventário
+app.post('/inventory', (req, res) => {
+    const { product, quantity } = req.body;
+    const sql = 'INSERT INTO inventory (product, quantity) VALUES (?, ?)';
+    db.run(sql, [product, quantity], function(err) {
+        if (err) {
+            return res.status(500).json({ error: err.message });
         }
-    } catch (error) {
-        res.status(500).json({ error: 'Erro ao atualizar o instrumento' });
-    }
+        res.json({ message: `${this.lastID} added to the inventory.` });
+    });
 });
 
-// Excluir um instrumento
-app.delete('/api/instruments/:id', async (req, res) => {
-    try {
-        const instrument = await Instrument.findByIdAndDelete(req.params.id);
-
-        if (instrument) {
-            res.json({ message: 'Instrumento excluído com sucesso!' });
-        } else {
-            res.status(404).json({ error: 'Instrumento não encontrado' });
+// Rota para obter todos os itens do inventário
+app.get('/inventory', (req, res) => {
+    db.all('SELECT * FROM inventory', [], (err, rows) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
         }
-    } catch (error) {
-        res.status(500).json({ error: 'Erro ao excluir o instrumento' });
-    }
+        res.json(rows);
+    });
 });
 
-// Limpar todo o inventário
-app.delete('/api/instruments', async (req, res) => {
-    try {
-        await Instrument.deleteMany({});
-        res.json({ message: 'Inventário limpo com sucesso!' });
-    } catch (error) {
-        res.status(500).json({ error: 'Erro ao limpar o inventário' });
-    }
-});
-
-app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
